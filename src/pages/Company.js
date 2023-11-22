@@ -18,7 +18,7 @@ export default function Company(){
         <div class="container mx-auto px-4">
           <Navbar />
           <SectionTitle
-            title=" Who we are?">
+            title=" Who are we?">
             We are a consultancy company based in Nairobi, Kenya.
             We provide consultancy services in the areas of customer relationship management (CRM) systems,
             business process automation and web application development. 

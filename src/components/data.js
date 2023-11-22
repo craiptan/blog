@@ -5,6 +5,10 @@ import {
     DevicePhoneMobileIcon,
     AdjustmentsHorizontalIcon,
     SunIcon,
+    UserGroupIcon,
+    PuzzlePieceIcon,
+    CodeBracketIcon,
+    CodeBracketSquareIcon
   } from "@heroicons/react/24/solid";
   
   import benefitOneImg from "../../public/img/benefit-one.png";
@@ -34,24 +38,24 @@ import {
   };
   
   const benefitTwo = {
-    title: "Offer more benefits here",
-    desc: "You can use this same layout with a flip image to highlight your rest of the benefits of your product. It can also contain an image or Illustration as above section along with some bullet points.",
+    title: "What solutions do we offer?",
+    desc: "We offer consultancy services in the areas of customer relationship management (CRM) systems, business process automation and web application development.",
     image: benefitTwoImg,
     bullets: [
       {
-        title: "Mobile Responsive Template",
-        desc: "Nextly is designed as a mobile first responsive template.",
-        icon: <DevicePhoneMobileIcon />,
+        title: "CRM Consultancy",
+        desc: "While streamlining your business operations we ensure that you get the right solution and tailor made to fit your usecase and have room to scale while minimizing cost.",
+        icon: <UserGroupIcon />,
       },
       {
-        title: "Powered by Next.js & TailwindCSS",
-        desc: "This template is powered by latest technologies and tools.",
-        icon: <AdjustmentsHorizontalIcon />,
+        title: "Business process automation",
+        desc: "We help you identify, and eliminate waste in your business operation through business process automation.",
+        icon: <PuzzlePieceIcon />,
       },
       {
-        title: "Dark & Light Mode",
-        desc: "Nextly comes with a zero-config light & dark mode. ",
-        icon: <SunIcon />,
+        title: "Application Implementation and Support",
+        desc: "We are your partner in implementing bespoke solution to your business or integrate available tools within your ecosystem to fit your business needs.",
+        icon: <CodeBracketIcon />,
       },
     ],
   };

@@ -46,7 +46,7 @@ const data = [
   {
     question: "Roadmap",
     answer:
-      "Providing solutions ",
+      "Providing technology solutions as a means to streamline and grow business solutions and contribute to a brighter world in many different ways.",
   },
 ];
 
