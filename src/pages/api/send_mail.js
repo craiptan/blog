@@ -35,7 +35,7 @@ import nodemailer from "nodemailer"
         from: req.body.email,
         to: 'whiptixtechnologies@gmail.com',
         subject: req.body.subject,
-        text: req.body.message,
+        text: 'name: '+ req.body.message+'Message: '+ req.body.message,
     });
 
     console.log(mailRes);
