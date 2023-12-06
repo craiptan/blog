@@ -1,3 +1,12 @@
+import Head from "next/head";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import SectionTitle from "@/components/SectionTitle";
+import Benefits from "@/components/benefits";
+import { benefitOne, benefitTwo } from "@/components/data";
+import Cta from "@/components/cta";
+import Footer from "@/components/footer";
+
 export default function Blog(){
     return(
         <>

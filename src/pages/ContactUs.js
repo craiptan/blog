@@ -4,75 +4,77 @@ import Footer from "@/components/footer";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
-import { styled } from '@mui/system';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import Swal from 'sweetalert2'
+import LinearProgress from '@mui/material/LinearProgress';
+
+import { useState } from "react";
 
 
 export default function ContactUs(){
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'center',
+    iconColor: 'white',
+    customClass: {
+      popup: 'colored-toast',
+    },
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+  })
+
+  const submitForm = async (e) => {
+    // We don't want the page to refresh
+    e.preventDefault()
+    setSending(true);
+    const formURL = e.target.action
+   
+    // POST the data to the URL of the form
+    const res = await fetch(formURL, {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        fullname: fullname,
+        subject: subject,
+        message: message,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-  };
+    const {error} = await res.json();
 
-  const blue = {
-    100: '#DAECFF',
-    200: '#b6daff',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    900: '#003A75',
-  };
+    if(error) {
+      console.log(error);
+      setSending(false);
+      await Toast.fire({
+        icon: 'error',
+        title: 'Error',
+      });
+    }else{
+      //reset form
+      setSending(false);
+      await Toast.fire({
+        icon: 'success',
+        title: 'Success',
+      });
+      setFullname("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
 
-  const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-  };
-
-  const Textarea = styled(BaseTextareaAutosize)(
-    ({ theme }) => `
-    width: 100%;
-    font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 12px;
-    border-radius: 12px 12px 0 12px;
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-    background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-    box-shadow: 0px 2px 2px ${theme.palette.mode === 'dark' ? grey[900] : grey[50]};
-
-    &:hover {
-      border-color: ${blue[400]};
     }
-
-    &:focus {
-      outline: 0;
-      border-color: ${blue[400]};
-      box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[600] : blue[200]};
-    }
-
-    // firefox
-    &:focus-visible {
-      outline: 0;
-    }
-  `,
-  );
+  };
     return(
     <>
         <Head>
@@ -96,15 +98,15 @@ export default function ContactUs(){
           <Typography component="h1" variant="h5">
             Get in touch
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate action="/api/send_mail" onSubmit={submitForm} sx={{ mt: 3, display: 'flex', justifyContent: 'center'}}>
             <Grid container item xs={6} spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="fullName"
+                  name="fullname"
                   required
                   fullWidth
-                  id="fullName"
+                  id="fullname"
                   label="Full Name"
                   autoFocus
                   InputProps={{
@@ -112,6 +114,12 @@ export default function ContactUs(){
                       borderRadius: "12px",
                     }
                   }}
+                  value={fullname}
+                  onChange={
+                    (e) => {
+                      setFullname(e.target.value)
+                    }
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -127,7 +135,12 @@ export default function ContactUs(){
                       borderRadius: "12px",
                     }
                   }}
-                  
+                  value={email}
+                  onChange={
+                    (e) => {
+                      setEmail(e.target.value)
+                    }
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -143,22 +156,52 @@ export default function ContactUs(){
                       borderRadius: "12px",
                     }
                   }}
-                  
+                  value={subject}
+                  onChange={
+                    (e) => {
+                      setSubject(e.target.value)
+                    }
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
-                <Textarea aria-label="empty textarea" minRows={3}  placeholder="Empty" />
+                <TextField 
+                  required
+                  fullWidth
+                  id="message"
+                  name="message"
+                  label="message"
+                  minRows={5} 
+                  value={message}
+                  onChange={
+                    (e) => {
+                      setMessage(e.target.value)
+                    }
+                  }
+                  multiline
+                  InputProps={{
+                    style: {
+                      borderRadius: "12px",
+                    }
+                  }}/>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                type="submit"
+                variant="outlined"
+                color="success"
+                endIcon={<SendIcon />}
+                fullWidth={true}
+                >
+                  Send
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                {
+                  (sending) && <LinearProgress color="success"/>
+                }
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              variant="outlined"
-              color="success"
-              endIcon={<SendIcon />}
-            >
-              Send
-            </Button>
-            
           </Box>
         </Box>
           <Footer />

@@ -15,8 +15,8 @@ const Cta = () => {
         </div>
         <div className="flex-shrink-0 w-full text-center lg:w-auto">
           <a
-            href="#"
-            target="_blank"
+            href="/ContactUs"
+            target="_self"
             rel="noopener"
             className="inline-block py-3 mx-auto text-lg font-medium text-center text-blue-600 bg-white rounded-md px-7 lg:px-10 lg:py-5 ">
             GET IN TOUCH
