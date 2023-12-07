@@ -21,6 +21,7 @@ export default function ContactUs(){
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
 
+
   const Toast = Swal.mixin({
     toast: true,
     position: 'center',
@@ -37,6 +38,17 @@ export default function ContactUs(){
     // We don't want the page to refresh
     e.preventDefault()
     setSending(true);
+    //validate entries
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      setErrors('Invalid email address');
+      setValidEmail(false);
+      setSending(false);
+      await Toast.fire({
+        icon: 'error',
+        title: 'Invalid email address',
+      });
+      return
+    }
     const formURL = e.target.action
    
     // POST the data to the URL of the form
@@ -129,6 +141,7 @@ export default function ContactUs(){
                   id="email"
                   label="Email Address"
                   name="email"
+                  type="email"
                   autoComplete="email"
                   InputProps={{
                     style: {

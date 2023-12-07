@@ -19,7 +19,7 @@ const Home = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div class="container mx-auto px-4">
+      <div className="container mx-auto px-4">
         <Navbar />
         <Hero />
         <SectionTitle
