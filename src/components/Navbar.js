@@ -7,7 +7,6 @@ const Navbar = () => {
   const navigation = [
     "Company",
     "Solutions",
-    "ContactUs",
     "Blog",
   ];
 
@@ -65,9 +64,9 @@ const Navbar = () => {
                           {item}
                       </Link>
                     ))}
-                    <Link href="/ContactUs" className="w-full px-6 py-2 mt-3 text-center text-white bg-blue-600 rounded-md lg:ml-5">         
+                    {/* <Link href="/ContactUs" className="w-full px-6 py-2 mt-3 text-center text-white bg-blue-600 rounded-md lg:ml-5">         
                         GET IN TOUCH
-                    </Link>
+                    </Link> */}
                   </>
                 </Disclosure.Panel>
               </div>
@@ -90,11 +89,11 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="hidden mr-3 space-x-4 lg:flex nav__item">
+        {/* <div className="hidden mr-3 space-x-4 lg:flex nav__item">
           <Link href="/ContactUs" className="px-6 py-2 text-white bg-blue-600 rounded-md md:ml-5">
               GET IN TOUCH
           </Link>
-        </div>
+        </div> */}
       </nav>
     </div>
   );
